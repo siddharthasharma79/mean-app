@@ -20,15 +20,13 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { HttpClient } from 'selenium-webdriver/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing.module';
-import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
     HeaderComponent,
-    PostListComponent,
-    LoginComponent
+    PostListComponent
   ],
   imports: [
     BrowserModule,
