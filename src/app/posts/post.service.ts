@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from './post.model';
 import { identifierModuleUrl } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
@@ -13,7 +14,7 @@ export class PostsService {
   private postsUpdated = new Subject<Post[]>();
 
   // CONSTRUCTOR
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // GET ALL POSTS
   getPosts() {
@@ -66,6 +67,8 @@ export class PostsService {
         post.id = id;
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
+        alert('Post Added Successfully');
+        this.router.navigate(['/']);
       });
   }
 
@@ -81,6 +84,8 @@ export class PostsService {
         updatedPosts[oldPostIndex] = post;
         this.posts = updatedPosts;
         this.postsUpdated.next([...this.posts]);
+        alert('Post Updated Successfully');
+        this.router.navigate(['/']);
       });
   }
 
