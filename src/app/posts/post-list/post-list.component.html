@@ -5,20 +5,29 @@
   </button>
 
   <mat-expansion-panel [expanded]="expanded" *ngFor="let post of posts">
+    <!-- TITLE   -->
     <mat-expansion-panel-header>
       <strong>{{ post.title }}</strong>
     </mat-expansion-panel-header>
+
+    <!-- IMAGE -->
+    <div class="post-image">
+      <img [src]="post.imagePath" [alt]="post.title" />
+    </div>
+
+    <!-- CONTENT -->
     <p>{{ post.content }}</p>
     <mat-action-row>
       <button
-        mat-button
+        mat-stroked-button
         color="primary"
         [routerLink]="['/edit', post.id]"
         routerLinkActive="router-link-active"
+        style="margin-right:5px"
       >
         EDIT
       </button>
-      <button mat-button color="warn" (click)="onDelete(post.id)">
+      <button mat-stroked-button color="warn" (click)="onDelete(post.id)">
         DELETE
       </button>
     </mat-action-row>

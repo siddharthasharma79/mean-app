@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -22,7 +23,10 @@ mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// 2. HEADER MIDDLEWARE
+// 2. ALLOW PATH TO /IMAGES FOLDER
+app.use('/images', express.static(path.join('backend/images')));
+
+// 3. HEADER MIDDLEWARE
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
