@@ -7,8 +7,19 @@ mat-spinner {
   margin: auto;
 }
 
+mat-paginator {
+  margin-top: 1rem;
+}
 .info-text {
   text-align: center;
+}
+
+.post-title {
+  font-weight: bold;
+}
+
+.post-content {
+  text-align: justify;
 }
 
 .post-image {
@@ -18,4 +29,11 @@ mat-spinner {
 .post-image img {
   width: 100%;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.list-header {
+  display: flex;
+}
+.spacer {
+  flex: 1 1 auto;
 }

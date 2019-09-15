@@ -11,6 +11,7 @@ const MIME_TYPE_MAP = {
   'image/jpg': 'jpg'
 };
 
+// CONFIGURE STORAGE FOR UPLOAD IMAGES
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const isVaild = MIME_TYPE_MAP[file.mimetype];
@@ -78,14 +79,28 @@ router.put(
   }
 );
 
-// GET POSTS
+// GET ALL POSTS
 router.get('', (req, res, next) => {
-  Post.find().then(documents => {
-    res.status(200).json({
-      message: 'Posts fetched succesfully!',
-      posts: documents
+  // geting query parameters
+  const pageSize = +req.query.pagesize;
+  const currenPage = +req.query.page;
+  const postQuery = Post.find();
+  let fetchedPosts;
+  if (pageSize && currenPage) {
+    postQuery.skip(pageSize * (currenPage - 1)).limit(pageSize);
+  }
+  postQuery
+    .then(documents => {
+      fetchedPosts = documents;
+      return Post.count();
+    })
+    .then(count => {
+      res.status(200).json({
+        message: 'Posts fetched succesfully!',
+        posts: fetchedPosts,
+        maxPosts: count
+      });
     });
-  });
 });
 
 // GET SINGLE POST

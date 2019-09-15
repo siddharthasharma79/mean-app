@@ -1,13 +1,23 @@
 <mat-spinner [diameter]="30" *ngIf="isLoading"></mat-spinner>
-<div multi="true" *ngIf="posts.length > 0 && !isLoading">
-  <button mat-button color="primary" (click)="expanded = !expanded">
-    {{ expanded ? 'Hide' : 'Expand' }} All
-  </button>
-
+<div multi="true">
+  <div class="list-header">
+    <button mat-button color="primary" (click)="expanded = !expanded">
+      {{ expanded ? 'Hide' : 'Expand' }} All
+    </button>
+    <span class="spacer"></span>
+    <mat-paginator
+      style="margin:0px; font-size: .9rem; color:black"
+      color="accent"
+      [length]="totalPosts"
+      [pageSize]="postsPerPage"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onChangedPage($event)"
+    ></mat-paginator>
+  </div>
   <mat-expansion-panel [expanded]="expanded" *ngFor="let post of posts">
     <!-- TITLE   -->
     <mat-expansion-panel-header>
-      <strong>{{ post.title }}</strong>
+      <p class="post-title">{{ post.title }}</p>
     </mat-expansion-panel-header>
 
     <!-- IMAGE -->
@@ -16,7 +26,7 @@
     </div>
 
     <!-- CONTENT -->
-    <p>{{ post.content }}</p>
+    <p class="post-content">{{ post.content }}</p>
     <mat-action-row>
       <button
         mat-stroked-button
@@ -32,6 +42,12 @@
       </button>
     </mat-action-row>
   </mat-expansion-panel>
+  <!-- <mat-paginator
+    [length]="totalPosts"
+    [pageSize]="postsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)"
+  ></mat-paginator> -->
 </div>
 
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
